@@ -13,16 +13,16 @@ class TagSearch
   include Kal::Exceptions
 
   attr_accessor :tags
-  attr_reader :root
+  attr_reader :root, :errors
 
   def initialize(tags, root_path='.')
     @tags = process_tags(tags)
     @root = process_root(root_path)
   end
 
-  def result
+  def results
     if @result.nil?
-      @result = []
+      @result = search(@root, @tags.first) #TODO
     end
 
     @result
@@ -47,6 +47,29 @@ class TagSearch
     raise BadRootPathError unless File.directory?(root_path)
 
     root_path
+  end
+
+  def search(root_path, tag)
+    puts root_path
+    puts tag
+
+    result = []
+    @errors = []
+
+    Dir["#{root_path}**/*.{kal}"].each do |kal|
+      f = kal.chomp('.kal')
+
+      unless File.exists?(f)
+        @errors << f
+        next
+      end
+
+      open(kal) do |kal_file|
+        result << f unless kal_file.grep(/#{tag}/i).empty?
+      end
+    end
+
+    result
   end
 end
 

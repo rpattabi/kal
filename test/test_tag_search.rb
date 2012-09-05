@@ -6,8 +6,10 @@ class TestTagSearch < Test::Unit::TestCase
   include Kal::Exceptions
 
   def setup
-    @search = TagSearch.new('kalyani', './fixture/')
-    @result = { :kalyani => './kalyani.ogg' }
+    @root_path = './fixture/'
+    @search = TagSearch.new('kalyani', @root_path)
+    @result = { :kalyani => "#{@root_path}kalyani.ogg", 
+                :KaLyani => "#{@root_path}kalyani.ogg" }
   end
 
   def test_initialize
@@ -51,10 +53,12 @@ class TestTagSearch < Test::Unit::TestCase
     end
   end
 
-  def test_result
-    assert_nothing_thrown { @search.result }
-    assert_equal([], TagSearch.new('kalyani', '/tmp').result)
+  def test_results
+    assert_nothing_thrown { @search.results }
+    assert_equal([], TagSearch.new('kalyani', '/tmp').results)
 
-    assert_equal([@result[:kalyani]], @search.result)
+    assert_equal([@result[:kalyani]], @search.results)
+    assert_equal([@result[:KaLyani]], @search.results)
+    assert_equal([], TagSearch.new('kani', @root_path).results)
   end
 end
