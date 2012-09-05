@@ -15,7 +15,7 @@ class TagSearch
   attr_accessor :tags
   attr_reader :root
 
-  def initialize(tags, root_path='./')
+  def initialize(tags, root_path='.')
     @tags = process_tags(tags)
     @root = process_root(root_path)
   end

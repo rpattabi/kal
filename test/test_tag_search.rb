@@ -19,7 +19,7 @@ class TestTagSearch < Test::Unit::TestCase
     search = TagSearch.new('kalyani')
     assert_not_nil(search)
     assert_equal(['kalyani'], search.tags)
-    assert_equal('./', search.root)
+    assert_equal('.', search.root)
   end
 
   def test_tags
@@ -38,7 +38,7 @@ class TestTagSearch < Test::Unit::TestCase
 
   def test_root
     search = TagSearch.new('ragu')
-    assert_equal('./', search.root)
+    assert_equal('.', search.root)
 
     search = TagSearch.new('ragu', '/tmp')
     assert_equal('/tmp', search.root)
