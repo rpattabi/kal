@@ -6,7 +6,8 @@ class TestTagSearch < Test::Unit::TestCase
   include Kal::Exceptions
 
   def setup
-
+    @search = TagSearch.new('kalyani', './fixture/')
+    @result = { :kalyani => './kalyani.ogg' }
   end
 
   def test_initialize
@@ -48,5 +49,12 @@ class TestTagSearch < Test::Unit::TestCase
     Tempfile.open('dingdong') do |f|
       assert_raise(BadRootPathError) { search = TagSearch.new('ragu', f.path) }
     end
+  end
+
+  def test_result
+    assert_nothing_thrown { @search.result }
+    assert_equal([], TagSearch.new('kalyani', '/tmp').result)
+
+    assert_equal([@result[:kalyani]], @search.result)
   end
 end

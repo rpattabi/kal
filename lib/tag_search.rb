@@ -20,6 +20,14 @@ class TagSearch
     @root = process_root(root_path)
   end
 
+  def result
+    if @result.nil?
+      @result = []
+    end
+
+    @result
+  end
+
   private
 
   def process_tags(tags)
