@@ -50,9 +50,6 @@ class TagSearch
   end
 
   def search(root_path, tag)
-    puts root_path
-    puts tag
-
     result = []
     @errors = []
 
