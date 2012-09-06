@@ -1,4 +1,4 @@
-require '../lib/tag_search'
+require_relative '../lib/tag_search'
 require 'tempfile'
 require 'test/unit'
 
@@ -6,10 +6,10 @@ class TestTagSearch < Test::Unit::TestCase
   include Kal::Exceptions
 
   def setup
-    @root_path = './fixture/'
+    @root_path = File.expand_path('../fixture/', __FILE__)
     @search = TagSearch.new('kalyani', @root_path)
-    @result = { :kalyani => "#{@root_path}kalyani.ogg", 
-                :KaLyani => "#{@root_path}kalyani.ogg" }
+    @result = { :kalyani => "#{@root_path}/kalyani.ogg", 
+                :KaLyani => "#{@root_path}/kalyani.ogg" }
   end
 
   def test_initialize
