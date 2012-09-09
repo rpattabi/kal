@@ -1,0 +1,13 @@
+form.root action='/' method='POST'
+  label Root directory:
+  input type='text' name='root'
+  input.button type='submit' value='go'
+
+h1 Audio files
+- unless @audios.nil?
+  - @audios.each do |audioo|
+    p
+      label
+      = audioo.title
+    p
+      audio src="#{audioo.path}" type='audio/ogg' controls='controls'
